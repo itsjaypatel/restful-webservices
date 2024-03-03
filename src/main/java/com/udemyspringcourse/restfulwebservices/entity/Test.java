@@ -1,7 +1,6 @@
 package com.udemyspringcourse.restfulwebservices.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.udemyspringcourse.restfulwebservices.validation.CustomDateFormatValidation;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;

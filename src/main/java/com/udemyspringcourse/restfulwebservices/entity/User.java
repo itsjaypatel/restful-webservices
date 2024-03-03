@@ -7,8 +7,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity(name = "user_detail")
@@ -30,9 +32,15 @@ public class User {
     private LocalDate birthDate;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userInfo",fetch = FetchType.LAZY)
     private List<Post> posts;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
     public User() {
     }
 
@@ -74,12 +82,30 @@ public class User {
         this.posts = posts;
     }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", birthDate=" + birthDate +
+                ", posts=" + posts +
+                ", comments=" + comments +
                 '}';
     }
 }

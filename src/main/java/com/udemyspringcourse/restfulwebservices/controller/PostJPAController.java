@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -40,7 +41,9 @@ public class PostJPAController {
         if(user == null){
             return ResponseUtil.getErrorResponse("User does not exists");
         }
-        return ResponseUtil.getSuccessResponse(user.getPosts());
+        List<Post> posts = user.getPosts();
+        posts.forEach(p -> p.setRefs(Map.of("createdBy",userId)));
+        return ResponseUtil.getSuccessResponse(posts);
     }
 
     @GetMapping("/jpa/users/{userId}/posts/{postId}")
@@ -56,6 +59,7 @@ public class PostJPAController {
         if(post == null){
             return ResponseUtil.getErrorResponse("Post does not exists");
         }
+        post.setRefs(Map.of("createdBy",userId));
         return ResponseUtil.getSuccessResponse(post);
     }
 
@@ -65,7 +69,7 @@ public class PostJPAController {
         if(user == null){
             return ResponseUtil.getErrorResponse("User does not exists");
         }
-        post.setUser(user);
+        post.setUserInfo(user);
         postRepository.save(post);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
