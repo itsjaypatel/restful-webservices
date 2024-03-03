@@ -2,7 +2,6 @@ package com.udemyspringcourse.restfulwebservices.controller;
 
 import com.udemyspringcourse.restfulwebservices.dao.UserDaoService;
 import com.udemyspringcourse.restfulwebservices.entity.User;
-import com.udemyspringcourse.restfulwebservices.util.LoggerTemplate;
 import com.udemyspringcourse.restfulwebservices.util.Response;
 import com.udemyspringcourse.restfulwebservices.util.ResponseUtil;
 import jakarta.validation.Valid;
